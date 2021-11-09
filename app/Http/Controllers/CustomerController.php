@@ -23,6 +23,15 @@ class CustomerController extends Controller
       parent::__construct();
   }
 
+
+   /**
+   * Sample data table view 
+   * 
+   * @return void
+   * @author Lemonkazi <lemonpstu09@gmail.com>
+   * @version 0.1 written in 2021-11-09
+   */
+
   public function index(Request $request, Customer $customer){
     
     
@@ -37,10 +46,8 @@ class CustomerController extends Controller
     $page = request()->get('page', 1);
 
     
-
+    //list filter logic
     if ($request->get('birth_year')) {
-      
-      
       $birth_year = $request->get('birth_year');
       $birth_month = $request->get('birth_month');
 
@@ -57,17 +64,11 @@ class CustomerController extends Controller
         $result = Cache::remember($cacheKey, $seconds, function () use ($paginate,$customer,$params) {
           $query = $customer->filter($params);
           return $query->get();
-          
-          
         });
-        
       }
       $totalCustomer = Cache::remember('count-' . $birth_year.'-' . $birth_month, $seconds, function() use ($result){
-          
         return $result->count();
-      });
-
-      
+      }); 
     }
     
 
@@ -107,10 +108,15 @@ class CustomerController extends Controller
     ]);
   }
 
-  
+  /**
+   * Flash cache
+   * 
+   * @return void
+   * @author Lemonkazi <lemonpstu09@gmail.com>
+   * @version 0.1 written in 2021-11-09
+  */
   public static function forgetCaches($prefix)
   {
-    
     Cache::flush();
   }
 

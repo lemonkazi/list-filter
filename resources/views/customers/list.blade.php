@@ -72,70 +72,70 @@
                 
                 <!-- /.card-header -->
                 <div class="card-body">
-                <?php
+                  <?php
                   if (!isset($data['birth_year'])) {
                     ?>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-12">
-                    <?php
-                  }
-                  ?>
-                      <?php
-                      if (!isset($data['birth_year'])) {
-                        ?>
-                        <table class="table table-bordered">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-12">
                         <?php
-                      } else {
+                        }
                         ?>
-                        <table id="example1" class="table table-bordered table-striped">
                         <?php
-                      }
-                      ?>
-                        <thead>                  
-                          <tr>
-                            <th style="width: 350px">Email</th>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th style="width: 150px">Phone</th>
-                            <th>Location</th>
-                            <th style="width: 150px">Birthday</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-
-                          <?php
-                          $counter = 1;
-                          foreach($allcustomers as $row){
-                            ?>
-
-                            
-                                  <tr>
-                                    <td>
-                                      <div class="float-left custom-control custom-checkbox">
-                                        <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                                        <label for="customCheckbox1" class="custom-control-label"></label>
-                                      </div>
-                                      {{$row->email}}
-                                    </td>
-                                    <td>{{$row->id}}</td>
-                                    <td>{{$row->name}}</td>
-                                    <td>{{$row->phone}}</td>
-                                    <td>{{$row->country}}</td>
-                                    <td>{{ date('Y-m-d', strtotime($row->birthday)) }}</td>
-                                  </tr>
-                                
-                                
-                            <!-- /.card-body -->
-                          <?php
-                          }
+                        if (!isset($data['birth_year'])) {
                           ?>
-                        </tbody>
-                      </table>
-                      <?php
-                      if (!isset($data['birth_year'])) {
+                        <table class="table table-bordered">
+                          <?php
+                        } else {
+                          ?>
+                        <table id="example1" class="table table-bordered table-striped">
+                          <?php
+                        }
                         ?>
+                            <thead>                  
+                              <tr>
+                                <th style="width: 350px">Email</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th style="width: 150px">Phone</th>
+                                <th>Location</th>
+                                <th style="width: 150px">Birthday</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                              <?php
+                              $counter = 1;
+                              foreach($allcustomers as $row){
+                                ?>
+
+                                
+                                      <tr>
+                                        <td>
+                                          <div class="float-left custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
+                                            <label for="customCheckbox1" class="custom-control-label"></label>
+                                          </div>
+                                          {{$row->email}}
+                                        </td>
+                                        <td>{{$row->id}}</td>
+                                        <td>{{$row->name}}</td>
+                                        <td>{{$row->phone}}</td>
+                                        <td>{{$row->country}}</td>
+                                        <td>{{ date('Y-m-d', strtotime($row->birthday)) }}</td>
+                                      </tr>
+                                    
+                                    
+                                <!-- /.card-body -->
+                              <?php
+                              }
+                              ?>
+                            </tbody>
+                        </table>
+                        <?php
+                        if (!isset($data['birth_year'])) {
+                          ?>
+                      </div>
                     </div>
-                  </div>
                   <?php
                   }
                   ?>
@@ -148,11 +148,6 @@
                   }
                   ?>
                 </div>
-                
-                
-
-
-              
                 
               </div>
               <!-- /.card -->
@@ -182,17 +177,9 @@
                 
               </div>
             </form>
-            
-            <!-- /.card -->
           </div>
           <!-- /.col -->
-          
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-        
-        
-        
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
@@ -200,23 +187,14 @@
   </div>
   <script src="{{asset('js/jquery.min.js')}}"></script>
   <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-      "searching": false,
-      "lengthChange": false,
-      "pageLength":<?php echo $paginate; ?>
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "searching": false,
+        "lengthChange": false,
+        "pageLength":<?php echo $paginate; ?>
+      });
     });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
+  </script>
 @endsection

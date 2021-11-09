@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "laravel/list-filter",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "list filter",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {

@@ -89,24 +89,20 @@
                       $counter = 1;
                       foreach($allcustomers as $row){
                         ?>
-
-                        
-                              <tr>
-                                <td>
-                                  <div class="float-left custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                                    <label for="customCheckbox1" class="custom-control-label"></label>
-                                  </div>
-                                  {{$row->email}}
-                                </td>
-                                <td>{{$row->id}}</td>
-                                <td>{{$row->name}}</td>
-                                <td>{{$row->phone}}</td>
-                                <td>{{$row->country}}</td>
-                                <td>{{ date('Y-m-d', strtotime($row->birthday)) }}</td>
-                              </tr>
-                            
-                            
+                        <tr>
+                          <td>
+                            <div class="float-left custom-control custom-checkbox">
+                              <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
+                              <label for="customCheckbox1" class="custom-control-label"></label>
+                            </div>
+                            {{$row->email}}
+                          </td>
+                          <td>{{$row->id}}</td>
+                          <td>{{$row->name}}</td>
+                          <td>{{$row->phone}}</td>
+                          <td>{{$row->country}}</td>
+                          <td>{{ date('Y-m-d', strtotime($row->birthday)) }}</td>
+                        </tr>
                         <!-- /.card-body -->
                       <?php
                       }
@@ -116,10 +112,6 @@
                 </div>
                 {{ $allcustomers->withQueryString()->links('partials.pagination', ['totalTalent' => $totalCustomer]) }}
 
-
-
-              
-                
               </div>
               <!-- /.card -->
               
@@ -156,8 +148,6 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
-        
-        
         
         <!-- /.row -->
       </div><!-- /.container-fluid -->

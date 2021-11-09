@@ -26,7 +26,13 @@ class ListController extends Controller
   
 
 
-
+   /**
+   * Sample data table view 
+   * 
+   * @return void
+   * @author Lemonkazi <lemonpstu09@gmail.com>
+   * @version 0.1 written in 2021-11-09
+  */
   public function index(Request $request, Customer $customer){
       
       
@@ -110,6 +116,13 @@ class ListController extends Controller
   }
 
 
+   /**
+   * flash cache
+   * 
+   * @return void
+   * @author Lemonkazi <lemonpstu09@gmail.com>
+   * @version 0.1 written in 2021-11-09
+  */
     
   public static function forgetCaches($prefix)
   {
