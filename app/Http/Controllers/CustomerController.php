@@ -38,8 +38,8 @@ class CustomerController extends Controller
     //All users
     $result = [];
     $params = $request->all();
-    $seconds = 60;
-    $paginate = 20;
+    $seconds = config('global.CACHE_TIMEOUT_SECONDS');
+    $paginate = config('global.DEFAULT_PAGINATE');
     if (isset($params['paginate']) && !empty($params['paginate'])) { 
       $paginate = $params['paginate'];
     }
@@ -89,9 +89,8 @@ class CustomerController extends Controller
     
    
 
-    $birth_years = collect(range(121, 0))->map(function ($item) {
-      return (string) date('Y') - $item;
-    });
+    
+    $birth_years = range(1900,date('Y'));
 
     $birth_months = [];
     foreach (range(1, 12) as $m) {
