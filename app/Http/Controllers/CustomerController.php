@@ -52,7 +52,7 @@ class CustomerController extends Controller
       $birth_month = $request->get('birth_month');
 
       // Check cache first
-      $cacheKey = 'customers-' . $birth_year.'-' . $birth_month.'-'.$paginate;
+      $cacheKey = 'customers-' . $birth_year.'-' . $birth_month;
       $catchPage = Cache::get($cacheKey);
       if ($catchPage != null) {
           $result = $catchPage;
