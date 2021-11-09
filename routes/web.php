@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,6 @@ use App\Http\Controllers\CustomerController;
 //     return view('welcome');
 // });
 
-Route::get('/', [CustomerController::class, 'list']);
+Route::get('/', [CustomerController::class, 'index']);
 
-Route::get('/list', [CustomerController::class, 'index']);
+Route::get('/list', [ListController::class, 'index']);

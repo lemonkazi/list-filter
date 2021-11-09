@@ -25,7 +25,7 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-10">
+          <div class="col-md-12">
 
             <form method="get" enctype="multipart/form-data" accept-charset="utf-8" role="form" novalidate="novalidate" autocomplete="off" class="form-table1 form-horizontal" action="{{ $CURRENT_URL }}">
                   
@@ -72,67 +72,83 @@
                 
                 <!-- /.card-header -->
                 <div class="card-body">
-                  
-                  <?php
+                <?php
                   if (!isset($data['birth_year'])) {
                     ?>
-                    <table class="table table-bordered">
-                    <?php
-                  } else {
-                    ?>
-                    <table id="example1" class="table table-bordered table-striped">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12">
                     <?php
                   }
                   ?>
-                    <thead>                  
-                      <tr>
-                        <th style="width: 350px">Email</th>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th style="width: 150px">Phone</th>
-                        <th>Location</th>
-                        <th style="width: 150px">Birthday</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
                       <?php
-                      $counter = 1;
-                      foreach($allcustomers as $row){
+                      if (!isset($data['birth_year'])) {
                         ?>
-
-                        
-                              <tr>
-                                <td>
-                                  <div class="float-left custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                                    <label for="customCheckbox1" class="custom-control-label"></label>
-                                  </div>
-                                  {{$row->email}}
-                                </td>
-                                <td>{{$row->id}}</td>
-                                <td>{{$row->name}}</td>
-                                <td>{{$row->phone}}</td>
-                                <td>{{$row->country}}</td>
-                                <td>{{ date('Y-m-d', strtotime($row->birthday)) }}</td>
-                              </tr>
-                            
-                            
-                        <!-- /.card-body -->
-                      <?php
+                        <table class="table table-bordered">
+                        <?php
+                      } else {
+                        ?>
+                        <table id="example1" class="table table-bordered table-striped">
+                        <?php
                       }
                       ?>
-                    </tbody>
-                  </table>
-                </div>
-                <?php
-                if (!isset($data['birth_year'])) {
-                  ?>
-                  {{ $allcustomers->withQueryString()->links('partials.pagination', ['totalTalent' => $totalCustomer]) }}
+                        <thead>                  
+                          <tr>
+                            <th style="width: 350px">Email</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th style="width: 150px">Phone</th>
+                            <th>Location</th>
+                            <th style="width: 150px">Birthday</th>
+                          </tr>
+                        </thead>
+                        <tbody>
 
+                          <?php
+                          $counter = 1;
+                          foreach($allcustomers as $row){
+                            ?>
+
+                            
+                                  <tr>
+                                    <td>
+                                      <div class="float-left custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
+                                        <label for="customCheckbox1" class="custom-control-label"></label>
+                                      </div>
+                                      {{$row->email}}
+                                    </td>
+                                    <td>{{$row->id}}</td>
+                                    <td>{{$row->name}}</td>
+                                    <td>{{$row->phone}}</td>
+                                    <td>{{$row->country}}</td>
+                                    <td>{{ date('Y-m-d', strtotime($row->birthday)) }}</td>
+                                  </tr>
+                                
+                                
+                            <!-- /.card-body -->
+                          <?php
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                      <?php
+                      if (!isset($data['birth_year'])) {
+                        ?>
+                    </div>
+                  </div>
                   <?php
-                }
-                ?>
+                  }
+                  ?>
+                  <?php
+                  if (!isset($data['birth_year'])) {
+                    ?>
+                    {{ $allcustomers->withQueryString()->links('partials.pagination', ['totalTalent' => $totalCustomer]) }}
+
+                    <?php
+                  }
+                  ?>
+                </div>
+                
                 
 
 

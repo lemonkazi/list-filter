@@ -1,44 +1,41 @@
 @if ($paginator->hasPages())
 <div class="row">
-   <div class="col-sm-12 col-md-5">
+    <div class="col-sm-12 col-md-5">
 
-   <?php
-// Total number of results
-$total = $totalTalent;
+      <?php
+      // Total number of results
+      $total = $totalTalent;
 
-// Items per page
-$item_per_page = $paginator->count();
+      // Items per page
+      $item_per_page = $paginator->count();
 
-// Page number
-$page_number = $paginator->currentPage();
+      // Page number
+      $page_number = $paginator->currentPage();
 
-// break records into pages
-$total_pages = count($elements);
+      // break records into pages
+      $total_pages = count($elements);
 
-// get starting position to fetch the records
-//$page_position = (($page_number - 1) * $item_per_page);
-
-// For none-last page, $page_position should be
-$page_position = (($page_number - 1) * $item_per_page) + 1;
-// eg: Let's say $page_number = 1, then $page_position should be 1
+      // get starting position to fetch the records
+      $page_position = (($page_number - 1) * $item_per_page) + 1;
 
 
-// And for last page, there's sometimes the count of records not equal to the $item_per_page, so you should directly show the $total.
-if ($page_number == $total_pages) {
-  $pagination_string =  $page_position . ' to ' . $total . ' of ' . $total;
-} else {
-  if ($page_number ==1) {
-    $pagination_string =  $page_position . ' to ' . $item_per_page . ' of ' . $total;
-  } else {
-    $pagination_string =  $page_position . ' to ' . ($page_position + $item_per_page-1) . ' of ' . $total;
+      // And for last page, there's sometimes the count of records not equal to the $item_per_page, so you should directly show the $total.
+      if ($page_number == $total_pages) {
+        $pagination_string =  $page_position . ' to ' . $total . ' of ' . $total;
+      } 
+      else {
+        if ($page_number ==1) {
+          $pagination_string =  $page_position . ' to ' . $item_per_page . ' of ' . $total;
+        } else {
+          $pagination_string =  $page_position . ' to ' . ($page_position + $item_per_page-1) . ' of ' . $total;
 
-  }
-}
+        }
+      }
 
-   ?>
+      ?>
       <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing {{ $pagination_string }} </div>
    </div>
-   <div class="col-sm-12 col-md-7">
+   <div class="col-sm-12 col-md-7 dataTables_wrapper">
       <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
          <!-- <ul class="pagination">
             <li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
