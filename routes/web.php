@@ -21,4 +21,4 @@ use App\Http\Controllers\ListController;
 
 Route::get('/', [CustomerController::class, 'index']);
 
-Route::get('/list', [ListController::class, 'index']);
+//Route::get('/list', [ListController::class, 'index']);
