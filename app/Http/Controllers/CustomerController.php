@@ -34,77 +34,81 @@ class CustomerController extends Controller
 
   public function index(Request $request, Customer $customer){
     
-    
-    //All users
-    $result = [];
-    $params = $request->all();
-    $seconds = config('global.CACHE_TIMEOUT_SECONDS');
-    $paginate = config('global.DEFAULT_PAGINATE');
-    if (isset($params['paginate']) && !empty($params['paginate'])) { 
-      $paginate = $params['paginate'];
-    }
-    $page = request()->get('page', 1);
-
-    
-    //list filter logic
-    if ($request->get('birth_year')) {
-      $birth_year = $request->get('birth_year');
-      $birth_month = $request->get('birth_month');
-
-      // Check cache first
-      $cacheKey = 'customers-' . $birth_year.'-' . $birth_month;
-      $catchPage = Cache::get($cacheKey);
-      if ($catchPage != null) {
-          $result = $catchPage;
-          
+    try{
+      //All users
+      $result = [];
+      $params = $request->all();
+      $seconds = config('global.CACHE_TIMEOUT_SECONDS');
+      $paginate = config('global.DEFAULT_PAGINATE');
+      if (isset($params['paginate']) && !empty($params['paginate'])) { 
+        $paginate = $params['paginate'];
       }
-      else {
+      $page = request()->get('page', 1);
+
+      
+      //list filter logic
+      if ($request->get('birth_year')) {
+        $birth_year = $request->get('birth_year');
+        $birth_month = $request->get('birth_month');
+
+        // Check cache first
+        $cacheKey = 'customers-' . $birth_year.'-' . $birth_month;
+        $catchPage = Cache::get($cacheKey);
+        if ($catchPage != null) {
+            $result = $catchPage;
+            
+        }
+        else {
+          // Clear caches:
+          $this->forgetCaches('customers-');
+          $result = Cache::remember($cacheKey, $seconds, function () use ($paginate,$customer,$params) {
+            $query = $customer->filter($params);
+            return $query->get();
+          });
+        }
+        $totalCustomer = Cache::remember('count-' . $birth_year.'-' . $birth_month, $seconds, function() use ($result){
+          return $result->count();
+        }); 
+      }
+      
+
+      
+
+      if(empty($result)) {
         // Clear caches:
         $this->forgetCaches('customers-');
-        $result = Cache::remember($cacheKey, $seconds, function () use ($paginate,$customer,$params) {
-          $query = $customer->filter($params);
-          return $query->get();
-        });
-      }
-      $totalCustomer = Cache::remember('count-' . $birth_year.'-' . $birth_month, $seconds, function() use ($result){
-        return $result->count();
-      }); 
-    }
-    
-
-    
-
-    if(empty($result)) {
-      // Clear caches:
-      $this->forgetCaches('customers-');
-      $query = $customer->filter($params);
-    
-      $result = $query->paginate($paginate);
-
-      $totalCustomer = Cache::remember('count-', $seconds, function() use ($result){
-        return $result->total();
-      });
+        $query = $customer->filter($params);
       
-    }
+        $result = $query->paginate($paginate);
+
+        $totalCustomer = Cache::remember('count-', $seconds, function() use ($result){
+          return $result->total();
+        });
+        
+      }
+      
     
-   
 
-    
-    $birth_years = range(1900,date('Y'));
+      
+      $birth_years = range(1900,date('Y'));
 
-    $birth_months = [];
-    foreach (range(1, 12) as $m) {
-        $birth_months[] = date('m', mktime(0, 0, 0, $m, 1));
+      $birth_months = [];
+      foreach (range(1, 12) as $m) {
+          $birth_months[] = date('m', mktime(0, 0, 0, $m, 1));
+      }
+
+      return view('customers.list', [
+        'allcustomers' => $result,
+        'totalCustomer'   => $totalCustomer,
+        'birth_years' => $birth_years,
+        'birth_months' => $birth_months,
+        'data'        => $params,
+        'paginate'        => $paginate
+      ]);
     }
-
-    return view('customers.list', [
-      'allcustomers' => $result,
-      'totalCustomer'   => $totalCustomer,
-      'birth_years' => $birth_years,
-      'birth_months' => $birth_months,
-      'data'        => $params,
-      'paginate'        => $paginate
-    ]);
+    catch(\Exception $e){
+      echo $e->getMessage(); exit;
+    }
   }
 
   /**

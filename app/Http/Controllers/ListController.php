@@ -35,7 +35,7 @@ class ListController extends Controller
   */
   public function index(Request $request, Customer $customer){
       
-      
+    try{ 
       //All users
       $result = [];
       $params = $request->all();
@@ -111,6 +111,10 @@ class ListController extends Controller
         'data'        => $params,
         'paginate'        => $paginate
       ]);
+    }
+    catch(\Exception $e){
+      echo $e->getMessage(); exit;
+    }
   }
 
 
